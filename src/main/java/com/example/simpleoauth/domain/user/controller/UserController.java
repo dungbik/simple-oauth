@@ -2,10 +2,12 @@ package com.example.simpleoauth.domain.user.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.simpleoauth.domain.user.dto.MyProfileResponse;
+import com.example.simpleoauth.domain.user.dto.UserProfileResponse;
 import com.example.simpleoauth.domain.user.service.UserService;
 import com.example.simpleoauth.global.security.AuthUser;
 import com.example.simpleoauth.global.security.LoginUser;
@@ -24,6 +26,14 @@ public class UserController {
 		@LoginUser AuthUser authUser
 	) {
 		MyProfileResponse res = userService.getMyProfile(authUser.userId());
+		return ResponseEntity.ok(res);
+	}
+
+	@GetMapping("/{userId}")
+	public ResponseEntity<UserProfileResponse> getUserProfile(
+		@PathVariable("userId") Long userId
+	) {
+		UserProfileResponse res = userService.getUserProfile(userId);
 		return ResponseEntity.ok(res);
 	}
 }
