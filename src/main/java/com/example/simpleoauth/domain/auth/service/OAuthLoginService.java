@@ -13,7 +13,6 @@ import com.example.simpleoauth.domain.auth.dto.OAuthLoginResponse;
 import com.example.simpleoauth.domain.auth.entity.User;
 import com.example.simpleoauth.domain.auth.entity.UserOAuthLink;
 import com.example.simpleoauth.domain.auth.repository.UserOAuthLinkRepository;
-import com.example.simpleoauth.domain.auth.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -22,10 +21,10 @@ import lombok.RequiredArgsConstructor;
 public class OAuthLoginService {
 
 	private final OAuthProperties oauthProperties;
-	private final UserRepository userRepository;
 	private final UserOAuthLinkRepository userOAuthLinkRepository;
 	private final OAuthUserService oAuthUserService;
 	private final JwtProvider jwtProvider;
+	private final OAuthRegisterService oAuthRegisterService;
 
 	public String getRedirectUri(OAuthProvider provider) {
 		OAuthProviderProperties prop = oauthProperties.getProviders().get(provider);
@@ -42,23 +41,10 @@ public class OAuthLoginService {
 		OAuthUserInfo userInfo = oAuthUserService.loadUser(provider, code);
 
 		UserOAuthLink oAuthLink = userOAuthLinkRepository.findByProviderAndProviderId(provider, userInfo.providerId())
-			.orElseGet(() -> registerOAuthUser(userInfo));
+			.orElseGet(() -> oAuthRegisterService.registerOAuthUser(userInfo));
 
 		User user = oAuthLink.getUser();
 		String accessToken = jwtProvider.generateAccessToken(user.getId(), user.getEmail());
 		return new OAuthLoginResponse(accessToken);
-	}
-
-	private UserOAuthLink registerOAuthUser(OAuthUserInfo userInfo) {
-		User user = userRepository.save(User.builder()
-			.email(userInfo.email())
-			.nickname(userInfo.nickname())
-			.build());
-
-		return userOAuthLinkRepository.save(UserOAuthLink.builder()
-			.provider(userInfo.provider())
-			.providerId(userInfo.providerId())
-			.user(user)
-			.build());
 	}
 }
