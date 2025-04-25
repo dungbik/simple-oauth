@@ -1,0 +1,42 @@
+server:
+  host: ${SERVER_HOST:http://localhost:8080}
+
+spring:
+  application:
+    name: simple-oauth
+
+  datasource:
+    url: ${MYSQL_URL:jdbc:mysql://localhost:3306/simple-oauth}
+    username: ${MYSQL_USERNAME:root}
+    password: ${MYSQL_PASSWORD:root}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        use_sql_comments: true
+        dialect: org.hibernate.dialect.MySQLDialect
+    open-in-view: false
+
+oauth:
+  providers:
+    kakao:
+      provider: kakao
+      client-id: ${KAKAO_CLIENT_ID}
+      authorize-uri: https://kauth.kakao.com/oauth/authorize
+      token-uri: https://kauth.kakao.com/oauth/token
+      user-info-uri: https://kapi.kakao.com/v2/user/me
+      redirect-uri: ${server.host}/oauth/login/kakao
+      fields:
+        id: id
+        email: kakao_account.email
+        nickname: kakao_account.profile.nickname
+
+jwt:
+  secret: ${JWT_SECRET:55ca298dcfc216e215622e3f48a251abaa4e8bb973074f065ab170e311acc15811d01a2407290c3ac143648196306d4a6f666a4ed364d3df633e08eb184bb0aea0f2edde4fd2d7fa68ea95ddbc421ff532ce47bde775975911042d665bc22d88a9fa26a03bb4d25530b8cdeb1247d87c9e3efcd721e368b0566b00a43308a729}
+  access-token-expiration: ${ACCESS_TOKEN_EXPIRATION:1d}
+
