@@ -7,10 +7,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.simpleoauth.client.OAuthUserInfo;
-import com.example.simpleoauth.domain.auth.entity.User;
-import com.example.simpleoauth.domain.auth.entity.UserOAuthLink;
-import com.example.simpleoauth.domain.auth.repository.UserOAuthLinkRepository;
-import com.example.simpleoauth.domain.auth.repository.UserRepository;
+import com.example.simpleoauth.domain.user.entity.User;
+import com.example.simpleoauth.domain.user.entity.UserOAuthLink;
+import com.example.simpleoauth.domain.user.repository.UserOAuthLinkRepository;
+import com.example.simpleoauth.domain.user.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 

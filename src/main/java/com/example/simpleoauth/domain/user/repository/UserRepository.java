@@ -1,8 +1,8 @@
-package com.example.simpleoauth.domain.auth.repository;
+package com.example.simpleoauth.domain.user.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.example.simpleoauth.domain.auth.entity.User;
+import com.example.simpleoauth.domain.user.entity.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 }

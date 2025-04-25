@@ -42,7 +42,7 @@ public class JwtProvider {
 			.compact();
 	}
 
-	public UserAuth parseUserFromToken(String token) {
+	public AuthUser parseUserFromToken(String token) {
 		Claims claims = Jwts.parser()
 			.verifyWith(secretKey)
 			.build()
@@ -51,6 +51,6 @@ public class JwtProvider {
 
 		Long userId = Long.parseLong(claims.getSubject());
 		String email = claims.get("email", String.class);
-		return new UserAuth(userId, email);
+		return new AuthUser(userId, email);
 	}
 }

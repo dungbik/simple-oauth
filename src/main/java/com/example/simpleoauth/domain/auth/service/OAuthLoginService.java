@@ -10,9 +10,9 @@ import com.example.simpleoauth.client.OAuthUserService;
 import com.example.simpleoauth.global.config.OAuthProperties;
 import com.example.simpleoauth.global.config.OAuthProviderProperties;
 import com.example.simpleoauth.domain.auth.dto.OAuthLoginResponse;
-import com.example.simpleoauth.domain.auth.entity.User;
-import com.example.simpleoauth.domain.auth.entity.UserOAuthLink;
-import com.example.simpleoauth.domain.auth.repository.UserOAuthLinkRepository;
+import com.example.simpleoauth.domain.user.entity.User;
+import com.example.simpleoauth.domain.user.entity.UserOAuthLink;
+import com.example.simpleoauth.domain.user.repository.UserOAuthLinkRepository;
 
 import lombok.RequiredArgsConstructor;
 

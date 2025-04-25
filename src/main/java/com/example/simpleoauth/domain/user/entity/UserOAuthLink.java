@@ -1,4 +1,4 @@
-package com.example.simpleoauth.domain.auth.entity;
+package com.example.simpleoauth.domain.user.entity;
 
 import com.example.simpleoauth.domain.auth.constant.OAuthProvider;
 
