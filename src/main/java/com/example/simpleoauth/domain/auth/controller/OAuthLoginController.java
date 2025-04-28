@@ -25,19 +25,19 @@ public class OAuthLoginController {
 
 	@GetMapping("/authorize/{provider}")
 	public void redirectToProvider(
-		@PathVariable("provider") String provider,
+		@PathVariable("provider") OAuthProvider provider,
 		HttpServletResponse response
 	) throws IOException {
-		String redirectUri = oAuthLoginService.getRedirectUri(OAuthProvider.from(provider));
+		String redirectUri = oAuthLoginService.getRedirectUri(provider);
 		response.sendRedirect(redirectUri);
 	}
 
 	@GetMapping("/login/{provider}")
 	public ResponseEntity<OAuthLoginResponse> login(
-		@PathVariable("provider") String provider,
+		@PathVariable("provider") OAuthProvider provider,
 		@RequestParam("code") String code
 	) {
-		OAuthLoginResponse res = oAuthLoginService.login(OAuthProvider.from(provider), code);
+		OAuthLoginResponse res = oAuthLoginService.login(provider, code);
 		return ResponseEntity.ok(res);
 	}
 }
